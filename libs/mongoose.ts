@@ -7,7 +7,12 @@ const connectMongo = async () => {
     );
   }
   return mongoose
-    .connect(process.env.MONGODB_URI)
+    .connect(process.env.MONGODB_URI, {
+      dbName:
+        process.env.NODE_ENV === "development"
+          ? "familienkasse_test"
+          : "familienkasse_db",
+    })
     .catch((e) => console.error("Mongoose Client Error: " + e.message));
 };
 
