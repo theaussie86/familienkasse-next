@@ -1,5 +1,7 @@
 import connectMongo from "@/libs/mongoose";
+import { authOptions } from "@/libs/next-auth";
 import Transaction from "@/models/Transaction";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -7,6 +9,11 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized", status: 401 });
+    }
+
     await connectMongo();
     const transaction = await Transaction.findById(params.id);
 
@@ -24,6 +31,11 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized", status: 401 });
+    }
+
     await connectMongo();
     const transaction = await Transaction.findById(params.id);
 
@@ -45,6 +57,11 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized", status: 401 });
+    }
+
     await connectMongo();
     const transaction = await Transaction.findById(params.id);
     if (!transaction) {
