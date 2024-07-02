@@ -28,23 +28,27 @@ export default function TablePagination<TData>({
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
-            Einträge{" "}
-            <span className="font-medium">
-              {table.getState().pagination.pageIndex *
-                table.getState().pagination.pageSize +
-                1}
-            </span>{" "}
-            bis{" "}
-            <span className="font-medium">
-              {table.getCanNextPage()
-                ? (table.getState().pagination.pageIndex + 1) *
-                  table.getState().pagination.pageSize
-                : table.getRowCount()}
-            </span>{" "}
-            von <span className="font-medium">{table.getRowCount()}</span>{" "}
-            Einträgen
-          </p>
+          {table.getRowCount() ? (
+            <p className="text-sm text-gray-700">
+              Einträge{" "}
+              <span className="font-medium">
+                {table.getState().pagination.pageIndex *
+                  table.getState().pagination.pageSize +
+                  1}
+              </span>{" "}
+              bis{" "}
+              <span className="font-medium">
+                {table.getCanNextPage()
+                  ? (table.getState().pagination.pageIndex + 1) *
+                    table.getState().pagination.pageSize
+                  : table.getRowCount()}
+              </span>{" "}
+              von <span className="font-medium">{table.getRowCount()}</span>{" "}
+              {table.getRowCount() === 1 ? "Eintrag" : "Einträgen"}
+            </p>
+          ) : (
+            <p>Keine Einträge gefunden</p>
+          )}
         </div>
         <div>
           <nav
@@ -103,7 +107,7 @@ export default function TablePagination<TData>({
               </span>
             ) : null}
             {table.getState().pagination.pageIndex !==
-            table.getPageCount() - 1 ? (
+              table.getPageCount() - 1 && table.getPageCount() > 0 ? (
               <button
                 onClick={() => table.lastPage()}
                 className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
