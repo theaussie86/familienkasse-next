@@ -66,7 +66,7 @@ export const tableColumns = [
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
+          <PopoverContent className="w-auto p-0 bg-white">
             <Calendar
               mode="single"
               locale={de}
@@ -126,6 +126,7 @@ export const tableColumns = [
         <Input
           startAdornment="€"
           type="number"
+          className="pl-6"
           step="0.01"
           value={value}
           onChange={(e) => setValue(parseFloat(e.target.value))}
@@ -162,7 +163,7 @@ export const tableColumns = [
               <ChevronsUpDown className="h-6 w-6 text-gray-500" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="p-0">
+          <PopoverContent className="p-0 bg-white">
             <Command>
               <CommandInput placeholder="Wähle ein Konto..." />
               <CommandEmpty>Keine Kontos gefunden</CommandEmpty>
@@ -226,14 +227,16 @@ export const tableColumns = [
   columnHelper.display({
     id: "actions",
     cell: ({ table, row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [open, setOpen] = useState<boolean>(false);
       return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button variant="ghost" size="sm">
               <TrashIcon className="h-6 w-6 text-gray-500" />
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="bg-white">
             <DialogHeader>
               <DialogTitle>Transaktion löschen</DialogTitle>
               <DialogDescription>
@@ -245,7 +248,9 @@ export const tableColumns = [
               <Button
                 variant="default"
                 onClick={() => {
-                  table.options.meta?.deleteTransaction(row.original._id);
+                  table.options.meta
+                    ?.deleteTransaction(row.original._id)
+                    .then(() => setOpen(false));
                 }}
               >
                 Löschen

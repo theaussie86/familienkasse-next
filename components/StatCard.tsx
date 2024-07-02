@@ -15,7 +15,7 @@ function StatCard({ item, hasLink = true }: StatCardProps) {
   return (
     <div className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6">
       <dt>
-        <div className="absolute rounded-md bg-indigo-500 p-3">
+        <div className="absolute rounded-md bg-secondary p-3">
           <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
         </div>
         <p className="ml-16 truncate text-sm font-medium text-gray-500">
@@ -41,7 +41,7 @@ function StatCard({ item, hasLink = true }: StatCardProps) {
             <div className="text-sm">
               <a
                 href={`/details?account=${item.name}`}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-secondary hover:text-secondary"
               >
                 Alle anzeigen
                 <span className="sr-only"> {item.name} stats</span>
