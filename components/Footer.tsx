@@ -11,7 +11,7 @@ const Footer = () => {
     <footer className="bg-base-200 border-t border-base-content/10">
       <div className="max-w-7xl mx-auto px-8 py-24">
         <div className=" flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+          <div className="flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
             <Link
               href="/#"
               aria-current="page"
@@ -31,12 +31,6 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <p className="mt-3 text-sm text-base-content/80">
-                {config.appDescription}
-              </p>
-            </div>
-
             <div className="lg:w-1/3 md:w-1/2 w-full px-4">
               <p className="mt-3 text-sm text-base-content/60">
                 Copyright © {new Date().getFullYear()} - All rights reserved
