@@ -11,7 +11,13 @@ export const fetchTransactions = unstable_cache(
     try {
       await connectMongo();
       const transactions = await Transaction.find();
-      return transactions.map((transaction) => transaction.toObject());
+
+      return transactions.map((transaction) => {
+        return {
+          ...transaction.toObject(),
+          _id: transaction._id.toString(),
+        };
+      });
     } catch (error) {
       console.error(error);
     }

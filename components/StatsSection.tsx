@@ -11,8 +11,8 @@ async function StatsSection() {
   const stats = [
     {
       id: 1,
-      name: "Spenden",
-      icon: Gift,
+      name: "Sparen",
+      icon: Banknote,
       target: savings?.reduce((acc, curr) => acc + curr.amount, 0),
       actual: savings?.reduce(
         (acc, curr) => (curr.isPaid ? acc + curr.amount : acc),
@@ -21,8 +21,8 @@ async function StatsSection() {
     },
     {
       id: 2,
-      name: "Sparen",
-      icon: Banknote,
+      name: "Spenden",
+      icon: Gift,
       target: donations?.reduce((acc, curr) => acc + curr.amount, 0),
       actual: donations?.reduce(
         (acc, curr) => (curr.isPaid ? acc + curr.amount : acc),

@@ -232,8 +232,12 @@ export const tableColumns = [
       return (
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button variant="ghost" size="sm">
-              <TrashIcon className="h-6 w-6 text-gray-500" />
+            <Button
+              variant="ghost"
+              className="text-gray-500 hover:text-white"
+              size="sm"
+            >
+              <TrashIcon className="h-6 w-6 " />
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white">
@@ -246,7 +250,7 @@ export const tableColumns = [
             </DialogHeader>
             <DialogFooter>
               <Button
-                variant="default"
+                variant="secondary"
                 onClick={() => {
                   table.options.meta
                     ?.deleteTransaction(row.original._id)
