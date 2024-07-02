@@ -1,12 +1,12 @@
 import { ElementType } from "react";
-import { cn } from "@/libs/util";
+import { cn, formatCurrency } from "@/libs/util";
 
-type StatCardProps = {
+export type StatCardProps = {
   item: {
     name: string;
     icon: ElementType;
-    actual: string | 0 | undefined;
-    target: string | 0 | undefined;
+    actual: number | 0 | undefined;
+    target: number | 0 | undefined;
   };
   hasLink?: boolean;
 };
@@ -29,8 +29,12 @@ function StatCard({ item, hasLink = true }: StatCardProps) {
         ></span>
       </dt>
       <dd className="ml-16 flex gap-x-2 items-baseline pb-6 sm:pb-7">
-        <p className="text-2xl font-semibold text-gray-900">{item.actual}</p>
-        <span className="text-gray-600">{`(Soll: ${item.target})`}</span>
+        <p className="text-2xl font-semibold text-gray-900">
+          {formatCurrency(item.actual)}
+        </p>
+        <span className="text-gray-600">{`(Soll: ${formatCurrency(
+          item.target
+        )})`}</span>
 
         {hasLink ? (
           <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">

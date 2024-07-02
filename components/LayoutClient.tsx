@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, Suspense, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Crisp } from "crisp-sdk-web";
@@ -9,6 +9,8 @@ import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import config from "@/config";
+import Footer from "./Footer";
+import Header from "./Header";
 
 // Crisp customer chat support:
 // This component is separated from ClientLayout because it needs to be wrapped with <SessionProvider> to use useSession() hook
@@ -58,8 +60,14 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
         {/* Show a progress bar at the top when navigating between pages */}
         <NextTopLoader color={config.colors.main} showSpinner={false} />
 
+        <Suspense>
+          <Header />
+        </Suspense>
+
         {/* Content inside app/page.js files  */}
-        {children}
+        <main className="flex-1 container p-6 mx-auto">{children}</main>
+
+        <Footer />
 
         {/* Show Success/Error messages anywhere from the app with toast() */}
         <Toaster

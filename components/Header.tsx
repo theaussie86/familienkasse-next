@@ -14,7 +14,7 @@ const links: {
   label: string;
 }[] = [
   {
-    href: "/dashboard",
+    href: "/",
     label: "Dashboard",
   },
   {

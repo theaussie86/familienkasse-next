@@ -14,10 +14,10 @@ import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { useState } from "react";
 import { cn as classNames } from "@/libs/util";
 import { Input } from "../ui/input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTransaction, updateTransaction } from "@/action/transaction";
 import { tableColumns } from "./columns";
 import { CreateTransactionSchema } from "@/libs/schema";
+import { useSearchParams } from "next/navigation";
 
 const sortingMap = {
   asc: <ChevronUpIcon className="h-4 w-4" aria-hidden="true" />,
@@ -34,33 +34,16 @@ function WeissteinerTable<TData extends CreateTransactionSchema>({
   isSearchable?: boolean;
   showPagination?: boolean;
 }) {
-  //   const queryClient = useQueryClient();
-  //   const deleteTransactionMutation = useMutation({
-  //     mutationFn: deleteTransaction,
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["transactions"],
-  //       });
-  //     },
-  //   });
-  //   const updateTransactionMutation = useMutation({
-  //     mutationFn: updateTransaction,
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["transactions"],
-  //       });
-  //     },
-  //   });
   const [sorting, setSorting] = useState<ColumnSort[]>([
     { id: "created", desc: true },
   ]);
   const [filter, setFilter] = useState<string>("");
-  //   const [search] = useSearchParams();
-  //   const [columnFilters] = useState(() =>
-  //     search.get("account")
-  //       ? [{ id: "account", value: search.get("account") }]
-  //       : []
-  //   );
+  const search = useSearchParams();
+  const [columnFilters] = useState(() =>
+    search.get("account")
+      ? [{ id: "account", value: search.get("account") }]
+      : []
+  );
 
   const table = useReactTable({
     data,
@@ -71,14 +54,13 @@ function WeissteinerTable<TData extends CreateTransactionSchema>({
     getSortedRowModel: getSortedRowModel(),
     state: {
       globalFilter: filter,
-      //   columnFilters,
+      columnFilters,
       sorting,
     },
     meta: {
-      //   deleteTransaction: (_id) =>
-      //     _id && deleteTransactionMutation.mutate({ _id, idToken }),
-      //   updateTransaction: (_id, data) =>
-      //     _id && updateTransactionMutation.mutate({ _id, data, idToken }),
+      deleteTransaction: (_id: string) => _id && deleteTransaction(_id),
+      updateTransaction: (_id: string, data: unknown) =>
+        _id && updateTransaction(_id, data),
     },
     onSortingChange: setSorting,
     onGlobalFilterChange: setFilter,
