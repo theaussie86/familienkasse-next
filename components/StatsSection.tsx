@@ -5,16 +5,16 @@ import { Banknote, BarChart4, Gift } from "lucide-react";
 
 async function StatsSection() {
   const transactions = await fetchTransactions();
-  const savings = transactions.filter((t) => t.account === "Sparen");
-  const donations = transactions.filter((t) => t.account === "Spenden");
-  const investments = transactions.filter((t) => t.account === "Investieren");
+  const savings = transactions?.filter((t) => t.account === "Sparen");
+  const donations = transactions?.filter((t) => t.account === "Spenden");
+  const investments = transactions?.filter((t) => t.account === "Investieren");
   const stats = [
     {
       id: 1,
       name: "Spenden",
       icon: Gift,
-      target: savings.reduce((acc, curr) => acc + curr.amount, 0),
-      actual: savings.reduce(
+      target: savings?.reduce((acc, curr) => acc + curr.amount, 0),
+      actual: savings?.reduce(
         (acc, curr) => (curr.isPaid ? acc + curr.amount : acc),
         0
       ),
@@ -23,8 +23,8 @@ async function StatsSection() {
       id: 2,
       name: "Sparen",
       icon: Banknote,
-      target: donations.reduce((acc, curr) => acc + curr.amount, 0),
-      actual: donations.reduce(
+      target: donations?.reduce((acc, curr) => acc + curr.amount, 0),
+      actual: donations?.reduce(
         (acc, curr) => (curr.isPaid ? acc + curr.amount : acc),
         0
       ),
@@ -33,8 +33,8 @@ async function StatsSection() {
       id: 3,
       name: "Investieren",
       icon: BarChart4,
-      target: investments.reduce((acc, curr) => acc + curr.amount, 0),
-      actual: investments.reduce(
+      target: investments?.reduce((acc, curr) => acc + curr.amount, 0),
+      actual: investments?.reduce(
         (acc, curr) => (curr.isPaid ? acc + curr.amount : acc),
         0
       ),

@@ -3,11 +3,11 @@ import { getServerSession } from "next-auth";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { redirect } from "next/navigation";
 import { getProviders } from "next-auth/react";
+import { authOptions } from "@/libs/next-auth";
 
 export default async function Login() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const providers = await getProviders();
-  console.log(session);
 
   if (session && session.user) redirect("/");
 

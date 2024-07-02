@@ -11,6 +11,7 @@ import { Tooltip } from "react-tooltip";
 import config from "@/config";
 import Footer from "./Footer";
 import Header from "./Header";
+import { Session } from "next-auth";
 
 // Crisp customer chat support:
 // This component is separated from ClientLayout because it needs to be wrapped with <SessionProvider> to use useSession() hook
@@ -53,10 +54,16 @@ const CrispChat = (): null => {
 // 3. Toaster: Show Success/Error messages anywhere from the app with toast()
 // 4. Tooltip: Show tooltips if any JSX elements has these 2 attributes: data-tooltip-id="tooltip" data-tooltip-content=""
 // 5. CrispChat: Set Crisp customer chat support (see above)
-const ClientLayout = ({ children }: { children: ReactNode }) => {
+const ClientLayout = ({
+  children,
+  session,
+}: {
+  children: ReactNode;
+  session: Session;
+}) => {
   return (
     <>
-      <SessionProvider>
+      <SessionProvider session={session}>
         {/* Show a progress bar at the top when navigating between pages */}
         <NextTopLoader color={config.colors.main} showSpinner={false} />
 

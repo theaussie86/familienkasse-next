@@ -5,6 +5,7 @@ import StatCard from "@/components/StatCard";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import config from "@/config";
+import { authOptions } from "@/libs/next-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +14,7 @@ async function DetailsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect(config.auth.loginUrl);
@@ -27,13 +28,13 @@ async function DetailsPage({
       ...stat,
       target: transactions
         ?.filter((transaction) => transaction.account === stat.name)
-        .reduce(sumupAmounts, 0),
+        ?.reduce(sumupAmounts, 0),
       actual: transactions
         ?.filter(
           (transaction) =>
             transaction.account === stat.name && transaction.isPaid === true
         )
-        .reduce(sumupAmounts, 0),
+        ?.reduce(sumupAmounts, 0),
     }))
     .find((stat) => stat.name === account);
 

@@ -6,6 +6,8 @@ import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
 import config from "@/config";
 import "./globals.css";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/next-auth";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,12 @@ export const viewport: Viewport = {
 // You can override them in each page passing params to getSOTags() function.
 export const metadata = getSEOTags();
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const session = await getServerSession(authOptions);
   return (
     <html
       lang="en"
@@ -34,7 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       )}
       <body className="h-full flex flex-col bg-base-100">
         {/* ClientLayout contains all the client wrappers (Crisp chat support, toast messages, tooltips, etc.) */}
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout session={session}>{children}</ClientLayout>
       </body>
     </html>
   );

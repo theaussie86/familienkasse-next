@@ -5,9 +5,10 @@ import WeissteinerTable from "@/components/table";
 import CreateTransactionForm from "@/components/CreateTransactionForm";
 import config from "@/config";
 import { fetchTransactions } from "@/action/transaction";
+import { authOptions } from "@/libs/next-auth";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session) {
     redirect(config.auth.loginUrl);
   }

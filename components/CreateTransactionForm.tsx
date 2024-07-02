@@ -94,7 +94,11 @@ function CreateTransactionForm() {
                     <FormItem>
                       <FormLabel>Betrag</FormLabel>
                       <FormControl>
-                        <Input startAdornment={"€"} {...field} />
+                        <Input
+                          startAdornment={"€"}
+                          className="pl-6"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -170,7 +174,9 @@ function CreateTransactionForm() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Speichern</Button>
+                <Button variant="secondary" type="submit">
+                  Speichern
+                </Button>
               </form>
               {<DevTool control={form.control} />}
             </Form>

@@ -7,7 +7,6 @@ export default function GoogleLoginButton({
 }: {
   provider: { id: string };
 }) {
-  console.log(provider);
   const handleLoginWithGoogle = async () => {
     try {
       signIn(provider.id);
