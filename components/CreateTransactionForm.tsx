@@ -61,7 +61,7 @@ function CreateTransactionForm() {
       console.error(error);
     }
   }
-  console.log("env mode", process.env.NODE_ENV);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
