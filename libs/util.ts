@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { Banknote, BarChart4, Gift } from "lucide-react";
 import { twMerge } from "tailwind-merge";
-import { CreateTransactionSchema } from "./schema";
+import { TransactionSchema } from "./schema";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,10 +17,8 @@ export const formatCurrency = (value: number | undefined) => {
   );
 };
 
-export const sumupAmounts = (
-  acc: number,
-  transaction: CreateTransactionSchema
-) => acc + transaction.amount;
+export const sumupAmounts = (acc: number, transaction: TransactionSchema) =>
+  acc + transaction.amount;
 
 export const baseStats = [
   {

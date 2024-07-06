@@ -16,7 +16,7 @@ import { cn as classNames } from "@/libs/util";
 import { Input } from "../ui/input";
 import { deleteTransaction, updateTransaction } from "@/action/transaction";
 import { tableColumns } from "./columns";
-import { CreateTransactionSchema } from "@/libs/schema";
+import { TransactionSchema } from "@/libs/schema";
 import { useSearchParams } from "next/navigation";
 
 const sortingMap = {
@@ -25,7 +25,7 @@ const sortingMap = {
   false: false,
 };
 
-function WeissteinerTable<TData extends CreateTransactionSchema>({
+function WeissteinerTable<TData extends TransactionSchema>({
   data,
   isSearchable = true,
   showPagination = true,

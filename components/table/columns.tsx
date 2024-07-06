@@ -29,10 +29,10 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { Calendar } from "../ui/calendar";
 import { Checkbox } from "../ui/checkbox";
-import { CreateTransactionSchema } from "@/libs/schema";
+import { TransactionSchema } from "@/libs/schema";
 import { createColumnHelper } from "@tanstack/react-table";
 
-const columnHelper = createColumnHelper<CreateTransactionSchema>();
+const columnHelper = createColumnHelper<TransactionSchema>();
 
 export const tableColumns = [
   columnHelper.accessor("created", {

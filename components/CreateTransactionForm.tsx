@@ -45,6 +45,8 @@ function CreateTransactionForm() {
   const form = useForm<CreateTransactionSchema>({
     resolver: zodResolver(createTransactionSchema),
     defaultValues: {
+      description: "",
+      amount: "",
       created: new Date(),
       account: "Sparen",
     },
@@ -53,11 +55,13 @@ function CreateTransactionForm() {
   async function onSubmit(data: CreateTransactionSchema) {
     try {
       await createTransaction(data);
+      form.reset();
       setOpen(false);
     } catch (error) {
       console.error(error);
     }
   }
+  console.log("env mode", process.env.NODE_ENV);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -83,7 +87,7 @@ function CreateTransactionForm() {
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-error" />
                     </FormItem>
                   )}
                 />
@@ -100,7 +104,7 @@ function CreateTransactionForm() {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-error" />
                     </FormItem>
                   )}
                 />
@@ -130,7 +134,7 @@ function CreateTransactionForm() {
                         </RadioGroup>
                       </FormControl>
 
-                      <FormMessage />
+                      <FormMessage className="text-error" />
                     </FormItem>
                   )}
                 />
@@ -170,15 +174,15 @@ function CreateTransactionForm() {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
+                      <FormMessage className="text-error" />
                     </FormItem>
                   )}
                 />
                 <Button variant="secondary" type="submit">
                   Speichern
                 </Button>
+                {<DevTool control={form.control} />}
               </form>
-              {<DevTool control={form.control} />}
             </Form>
           </DialogDescription>
         </DialogHeader>
